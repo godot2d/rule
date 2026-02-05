@@ -278,16 +278,23 @@ rule-providers:
     interval: 86400
     format: text
     type: http
+  ai:
+    url: https://raw.githubusercontent.com/juewuy/ShellClash/master/rules/ai.list
+    path: ./ruleset/ai.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
   AiDomain:
-    url: https://raw.githubusercontent.com/godot2d/rule/refs/heads/master/AiDomain.list
+    url: https://raw.githubusercontent.com/szkane/ClashRuleSet/main/Clash/Ruleset/AiDomain.list
     path: ./ruleset/AiDomain.list
     behavior: classical
     interval: 86400
     format: text
     type: http
-  ai:
+  ai_11:
     url: https://raw.githubusercontent.com/godot2d/rule/refs/heads/master/ai.list
-    path: ./ruleset/ai.list
+    path: ./ruleset/ai_11.list
     behavior: classical
     interval: 86400
     format: text
@@ -380,8 +387,9 @@ rules:
   - RULE-SET,Netflix_6,🎥 NETFLIX
   - RULE-SET,DisneyPlus,🎥 DisneyP
   - RULE-SET,Spotify,🎵 Spotify
-  - RULE-SET,AiDomain,🤖 人工智能
   - RULE-SET,ai,🤖 人工智能
+  - RULE-SET,AiDomain,🤖 人工智能
+  - RULE-SET,ai_11,🤖 人工智能
   - RULE-SET,Microsoft,Ⓜ️ 微软服务
   - RULE-SET,Apple,🍎 苹果服务
   - RULE-SET,icloud,🍎 iCloud
