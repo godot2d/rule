@@ -24,7 +24,7 @@ def parse_ini(file_path):
                 
                 # Check for special case []FINAL
                 if url == '[]FINAL':
-                    rules.append(f"MATCH,{group_name}")
+                    rules.append(f"MATCH,{group_name.replace('[]', '')}")
                     continue
 
                 # Derive provider name from URL filename
@@ -66,7 +66,6 @@ def parse_ini(file_path):
                 
             name = parts[0]
             g_type = parts[1]
-            proxies_or_filter = parts[2]
             
             group = {
                 'name': name,
@@ -74,22 +73,54 @@ def parse_ini(file_path):
             }
             
             if g_type == 'select':
-                if '[]' in proxies_or_filter:
-                    # Explicit list of proxies
-                    p_list = proxies_or_filter.split('[]')
-                    # Filter empty and strip
-                    p_list = [p.strip() for p in p_list if p.strip()]
-                    group['proxies'] = p_list
-                elif proxies_or_filter == '.*':
-                    # include-all
+                # For select, parts[2:] are usually the proxies or includes
+                # But sometimes it might be just a regex filter like .*
+                # However, in the user's case, it's a list separated by backticks
+                
+                # Check if parts[2] looks like a regex or include-all
+                # If it contains `[]`, it's likely a list of proxies
+                # If it is exactly `.*` or similar regex, it is a filter
+                
+                # We collect all parts from 2 onwards
+                potential_proxies = parts[2:]
+                
+                proxies = []
+                include_all = False
+                filter_expr = None
+                
+                for p in potential_proxies:
+                    if p == '.*':
+                        include_all = True
+                    elif '[]' in p:
+                        # It's a proxy group reference or proxy, e.g. []ProxyName
+                        p_clean = p.replace('[]', '').strip()
+                        if p_clean:
+                            proxies.append(p_clean)
+                    elif '(' in p and ')' in p:
+                         # Likely a regex filter
+                         include_all = True
+                         filter_expr = p
+                    else:
+                        # Could be a direct proxy name or other keyword
+                        # If it's just a string, assume it's a proxy
+                        if p.strip():
+                            proxies.append(p.strip())
+                
+                if proxies:
+                    group['proxies'] = proxies
+                
+                if include_all:
                     group['include-all'] = True
-                else:
-                    # Maybe a regex filter?
-                    group['include-all'] = True
-                    group['filter'] = proxies_or_filter
+                
+                if filter_expr:
+                    group['filter'] = filter_expr
                     
             elif g_type == 'url-test':
                 # parts: Name, Type, Filter, URL, Interval...
+                # Usually: Name`url-test`Filter`URL`Interval`Tolerance
+                
+                proxies_or_filter = parts[2]
+                
                 if len(parts) >= 4:
                     group['url'] = parts[3]
                     
