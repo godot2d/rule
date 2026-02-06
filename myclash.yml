@@ -1,0 +1,166 @@
+proxy-groups:
+  - name: 🚀 节点选择
+    type: select
+    proxies:
+      - ♻️ 自动选择
+      - 🚀 手动切换
+      - 🌍 非自己节点
+      - DIRECT
+  - name: 🚀 手动切换
+    type: select
+    include-all: true
+  - name: ♻️ 自动选择
+    type: url-test
+    include-all: true
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+  - name: 🌍 国外媒体
+    type: select
+    proxies:
+      - 🌍 非自己节点
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🚀 手动切换
+      - DIRECT
+  - name: 🎯 全球直连
+    type: select
+    proxies:
+      - DIRECT
+      - 🚀 节点选择
+      - ♻️ 自动选择
+  - name: 🤖 人工智能
+    type: select
+    proxies:
+      - 🇸🇬 新加坡节点
+      - 🇺🇲 美国节点
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - DIRECT
+      - 🚀 手动切换
+  - name: 🐟 漏网之鱼
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - DIRECT
+      - 🚀 手动切换
+  - name: 🛑 广告拦截
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+  - name: 🌍 非自己节点
+    type: url-test
+    include-all: true
+    filter: ^(?!.*\d+\.\d+\.\d+\.\d+).*$
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+  - name: 🇸🇬 新加坡节点
+    type: url-test
+    include-all: true
+    filter: (新加坡|坡|狮城|SG|Singapore)
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+  - name: 🇺🇲 美国节点
+    type: url-test
+    include-all: true
+    filter: (美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United States)
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 150
+
+rule-providers:
+  BanAD:
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanAD.list
+    path: ./ruleset/BanAD.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  BanProgramAD:
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanProgramAD.list
+    path: ./ruleset/BanProgramAD.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  PrivateTracker:
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/PrivateTracker.list
+    path: ./ruleset/PrivateTracker.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  ProxyMedia:
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyMedia.list
+    path: ./ruleset/ProxyMedia.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  ChinaDomain:
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaDomain.list
+    path: ./ruleset/ChinaDomain.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  ChinaIpV6:
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaIpV6.list
+    path: ./ruleset/ChinaIpV6.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  ChinaIp:
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaIp.list
+    path: ./ruleset/ChinaIp.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  myip:
+    url: https://raw.githubusercontent.com/godot2d/rule/refs/heads/master/myip.list
+    path: ./ruleset/myip.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  GoogleCN:
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/GoogleCN.list
+    path: ./ruleset/GoogleCN.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  ai:
+    url: https://raw.githubusercontent.com/juewuy/ShellClash/master/rules/ai.list
+    path: ./ruleset/ai.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  ai_10:
+    url: https://raw.githubusercontent.com/godot2d/rule/refs/heads/master/ai.list
+    path: ./ruleset/ai_10.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+
+rules:
+  - RULE-SET,BanAD,🛑 广告拦截
+  - RULE-SET,BanProgramAD,🛑 广告拦截
+  - RULE-SET,PrivateTracker,🛑 广告拦截
+  - RULE-SET,ProxyMedia,🌍 国外媒体
+  - RULE-SET,ChinaDomain,🎯 全球直连
+  - RULE-SET,ChinaIpV6,🎯 全球直连
+  - RULE-SET,ChinaIp,🎯 全球直连
+  - RULE-SET,myip,🎯 全球直连
+  - RULE-SET,GoogleCN,🎯 全球直连
+  - RULE-SET,ai,🤖 人工智能
+  - RULE-SET,ai_10,🤖 人工智能
+  - MATCH,🐟 漏网之鱼

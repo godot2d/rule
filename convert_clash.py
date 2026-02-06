@@ -195,8 +195,8 @@ def generate_yaml(proxy_groups, rule_providers, rules, output_path):
             f.write(f"  - {rule}\n")
 
 if __name__ == '__main__':
-    ini_path = r'f:\git\rule\Clash.ini'
-    yaml_path = r'f:\git\rule\clash.yml'
+    ini_path = r'f:\git\rule\myClash.ini'
+    yaml_path = r'f:\git\rule\myclash.yml'
     
     pg, rp, r = parse_ini(ini_path)
     generate_yaml(pg, rp, r, yaml_path)
