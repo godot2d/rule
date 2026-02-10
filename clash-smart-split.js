@@ -3,13 +3,43 @@
 **/
 const proxyName = "代理模式";
 
-function main(params) {
-	if (!params.proxies) return params;
-	overwriteRules(params);
-	overwriteProxyGroups(params);
-	overwriteDns(params);
-	return params;
+const UserConfig = {
+  // 黑名单关键词（包含即删除）
+  blockKeywords: [
+    "专线X5倍率",
+    "到期",
+    "剩余流量",
+    "重置",
+    "官网",
+    "如果是",
+    "邮箱",
+    "套餐",
+  ],
+};
+function filterProxiesByKeyword(params) {
+  if (!params.proxies || params.proxies.length === 0) return;
+  const before = params.proxies.length;
+  params.proxies = params.proxies.filter(p =>
+    !UserConfig.blockKeywords.some(k => p.name.includes(k))
+  );
+  const after = params.proxies.length;
+  // 防御：如果被清空，至少保留 DIRECT
+  if (after === 0) {
+    params.proxies = [];
+  }
 }
+
+function main(params) {
+  if (!params.proxies) return params;
+  //1. 先清洗垃圾节点（最关键）
+  filterProxiesByKeyword(params);
+  //2. 再生成规则 / 分组 / DNS
+  overwriteRules(params);
+  overwriteProxyGroups(params);
+  overwriteDns(params);
+  return params;
+}
+
 
 const countryRegions = [
 	{ code: "HK", name: "香港", icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/hk.svg", regex: /(香港|HK|Hong Kong|🇭🇰)(?!.*(中国|CN|China|PRC|🇨🇳))/i },
