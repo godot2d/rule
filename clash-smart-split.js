@@ -70,6 +70,8 @@ function getTestUrlForGroup(groupName) {
 		return "http://msn.com/";
 	case "Linux Do":
 		return "https://linux.do/";
+	case "zrblog":
+		return "https://www.zrblog.net/";
 	default:
 		return "http://www.gstatic.com/generate_204";
 	}
@@ -79,6 +81,8 @@ function getIconForGroup(groupName) {
 	switch (groupName) {
 	case "Linux Do":
 		return "https://linux.do/uploads/default/original/3X/9/d/9dd49731091ce8656e94433a26a3ef36062b3994.png";
+	case "zrblog":
+		return "https://www.zrblog.net/favicon.ico";
 	case "Steam":
 		return "https://fastly.jsdelivr.net/gh/Orz-3/mini@master/Color/Steam.png";
 	case "Telegram":
@@ -102,15 +106,30 @@ function getIconForGroup(groupName) {
 	}
 }
 
+const prependRule = [
+	"DOMAIN-SUFFIX,taobao.com,DIRECT",
+	"DOMAIN-SUFFIX,alibaba.com,DIRECT",
+	"DOMAIN-SUFFIX,aliyuncs.com,DIRECT",
+	"DOMAIN-SUFFIX,dingtalk.com,DIRECT",
+	"DOMAIN-SUFFIX,alicdn.com,DIRECT",
+	"DOMAIN-SUFFIX,wechat.com,DIRECT",
+	"DOMAIN-SUFFIX,wx.qlogo.cn,DIRECT",
+	"DOMAIN-SUFFIX,qpic.cn,DIRECT",
+	"DOMAIN-SUFFIX,hdslb.com,DIRECT",
+];
+
 const customRules = [
+	...prependRule,
 	"DOMAIN-SUFFIX,linux.do,Linux Do",
-  "IP-CIDR,183.230.113.152/32,REJECT",
+	"DOMAIN-SUFFIX,zrblog.net,zrblog",
+	"IP-CIDR,183.230.113.152/32,REJECT",
 	"IP-CIDR,1.12.12.12/32,代理模式"
 ];
 
 function overwriteRules(params) {
 	const rules = [
 		...customRules,
+		"RULE-SET,BiliBili,DIRECT",
 		"RULE-SET,steam,Steam",
 		"RULE-SET,telegramcidr,Telegram,no-resolve",
 		"RULE-SET,openai,ChatGPT",
@@ -140,188 +159,175 @@ function overwriteRules(params) {
 		// "RULE-SET,tld-not-cn," + proxyName,
 		"MATCH,漏网之鱼",
 	];
+ // 规则集通用配置
+	const ruleProviderCommon = {
+		type: "http",
+		format: "yaml",
+		interval: 86400
+	};
+// 规则集配置
 	const ruleProviders = {
 		steam: {
-			type: "http",
+		...ruleProviderCommon,
 			behavior: "classical",
 			url: "https://raw.githubusercontent.com/yangtb2024/Steam-Clash/refs/heads/main/Steam.txt",
 			path: "./ruleset/steam.yaml",
-			interval: 86400,
 		},
 		Microsoft: {
-			type: "http",
+			...ruleProviderCommon,
 			behavior: "classical",
 			url: "https://raw.githubusercontent.com/yangtb2024/Steam-Clash/refs/heads/main/microsoft.txt",
 			path: "./ruleset/Microsoft.yaml",
-			interval: 86400,
 		},
 		reject: {
-			type: "http",
+			...ruleProviderCommon,
 			behavior: "domain",
 			url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt",
 			path: "./ruleset/reject.yaml",
-			interval: 86400,
 		},
 		icloud: {
-			type: "http",
+			...ruleProviderCommon,
 			behavior: "domain",
 			url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/icloud.txt",
 			path: "./ruleset/icloud.yaml",
-			interval: 86400,
 		},
 		apple: {
-			type: "http",
+			...ruleProviderCommon,
 			behavior: "domain",
 			url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/apple.txt",
 			path: "./ruleset/apple.yaml",
-			interval: 86400,
 		},
 		google: {
-			type: "http",
+			...ruleProviderCommon,
 			behavior: "domain",
 			url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/google.txt",
 			path: "./ruleset/google.yaml",
-			interval: 86400,
 		},
 		proxy: {
-			type: "http",
+			...ruleProviderCommon,
 			behavior: "domain",
 			url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/proxy.txt",
 			path: "./ruleset/proxy.yaml",
-			interval: 86400,
 		},
 		openai: {
-			type: "http",
+			...ruleProviderCommon,
 			behavior: "classical",
 			url: "https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/OpenAI/OpenAI.yaml",
 			path: "./ruleset/custom/openai.yaml",
-			interval: 86400,
 		},
 		claude: {
-			type: "http",
+			...ruleProviderCommon,
 			behavior: "classical",
 			url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Claude/Claude.yaml",
 			path: "./ruleset/custom/Claude.yaml",
-			interval: 86400,
+		},
+		BiliBili: {
+			...ruleProviderCommon,
+			behavior: "classical",
+			url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/BiliBili/BiliBili.yaml",
+			path: "./ruleset/custom/BiliBili.yaml",
 		},
 		spotify: {
-			type: "http",
+			...ruleProviderCommon,
 			behavior: "classical",
 			url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Spotify/Spotify.yaml",
 			path: "./ruleset/custom/Spotify.yaml",
-			interval: 86400,
 		},
 		telegramcidr: {
-			type: "http",
+			...ruleProviderCommon,
 			behavior: "ipcidr",
 			url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/telegramcidr.txt",
 			path: "./ruleset/custom/telegramcidr.yaml",
-			interval: 86400,
 		},
 		direct: {
-			type: "http",
+			...ruleProviderCommon,
 			behavior: "domain",
 			url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt",
 			path: "./ruleset/direct.yaml",
-			interval: 86400,
 		},
 		private: {
-			type: "http",
+			...ruleProviderCommon,
 			behavior: "domain",
 			url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/private.txt",
 			path: "./ruleset/private.yaml",
-			interval: 86400,
 		},
 		gfw: {
-			type: "http",
+			...ruleProviderCommon,
 			behavior: "domain",
 			url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt",
 			path: "./ruleset/gfw.yaml",
-			interval: 86400,
 		},
 		greatfire: {
-			type: "http",
+			...ruleProviderCommon,
 			behavior: "domain",
 			url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/greatfire.txt",
 			path: "./ruleset/greatfire.yaml",
-			interval: 86400,
 		},
 		"tld-not-cn": {
-			type: "http",
+			...ruleProviderCommon,
 			behavior: "domain",
 			url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/tld-not-cn.txt",
 			path: "./ruleset/tld-not-cn.yaml",
-			interval: 86400,
 		},
 		cncidr: {
-			type: "http",
+			...ruleProviderCommon,
 			behavior: "ipcidr",
 			url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt",
 			path: "./ruleset/cncidr.yaml",
-			interval: 86400,
 		},
 		lancidr: {
-			type: "http",
+			...ruleProviderCommon,
 			behavior: "ipcidr",
 			url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt",
 			path: "./ruleset/lancidr.yaml",
-			interval: 86400,
 		},
 		applications: {
-			type: "http",
+			...ruleProviderCommon,
 			behavior: "classical",
 			url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/applications.txt",
 			path: "./ruleset/applications.yaml",
-			interval: 86400,
 		},
 		AD: {
-		  type: "http",
+		  ...ruleProviderCommon,
 		  behavior: "domain",
 		  url: "https://raw.githubusercontent.com/earoftoast/clash-rules/main/AD.yaml",
 		  path: "./rules/AD.yaml",
-		  interval: 86400,
 		},
 		EasyList: {
-		  type: "http",
-		  behavior: "domain",
-		  url: "https://raw.githubusercontent.com/earoftoast/clash-rules/main/EasyList.yaml",
-		  path: "./rules/EasyList.yaml",
-		  interval: 86400,
+			...ruleProviderCommon,
+			behavior: "domain",
+			url: "https://raw.githubusercontent.com/earoftoast/clash-rules/main/EasyList.yaml",
+			path: "./rules/EasyList.yaml",
 		},
 		EasyListChina: {
-		  type: "http",
+		  ...ruleProviderCommon,
 		  behavior: "domain",
 		  url: "https://raw.githubusercontent.com/earoftoast/clash-rules/main/EasyListChina.yaml",
 		  path: "./rules/EasyListChina.yaml",
-		  interval: 86400,
 		},
 		EasyPrivacy: {
-		  type: "http",
+			...ruleProviderCommon,
 		  behavior: "domain",
 		  url: "https://raw.githubusercontent.com/earoftoast/clash-rules/main/EasyPrivacy.yaml",
 		  path: "./rules/EasyPrivacy.yaml",
-		  interval: 86400,
 		},
 		ProgramAD: {
-		  type: "http",
+		  ...ruleProviderCommon,
 		  behavior: "domain",
 		  url: "https://raw.githubusercontent.com/earoftoast/clash-rules/main/ProgramAD.yaml",
 		  path: "./rules/ProgramAD.yaml",
-		  interval: 86400,
 		},
 		gfw: {
-		  type: "http",
+		  ...ruleProviderCommon,
 		  behavior: "domain",
 		  url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt",
 		  path: "./ruleset/gfw.yaml",
-		  interval: 86400,
 		},
 		greatfire: {
-		  type: "http",
+		  ...ruleProviderCommon,
 		  behavior: "domain",
 		  url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/greatfire.txt",
 		  path: "./ruleset/greatfire.yaml",
-		  interval: 86400,
 		},
 	};
 	
@@ -430,7 +436,7 @@ function overwriteProxyGroups(params) {
       type: "select",
       icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/speed.svg",
       proxies: ["ALL - 自动选择", ...autoProxyGroups
-        .filter(group => !["Steam", "Telegram", "ChatGPT", "Claude", "Spotify", "Google", "Microsoft", "Linux Do"].includes(group.name))
+        .filter(group => !["Steam", "Telegram", "ChatGPT", "Claude", "Spotify", "Google", "Microsoft", "Linux Do", "zrblog"].includes(group.name))
         .map(group => group.name), otherAutoProxyGroup ? otherAutoProxyGroup.name : null].filter(Boolean),
     },
 
@@ -470,7 +476,7 @@ function overwriteProxyGroups(params) {
       hidden: true,
     },
 
-    ...["Steam", "Telegram", "ChatGPT", "Claude", "Spotify", "Google", "Microsoft", "Linux Do"].map(groupName => ({
+    ...["Steam", "Telegram", "ChatGPT", "Claude", "Spotify", "Google", "Microsoft", "Linux Do", "zrblog"].map(groupName => ({
       name: groupName,
       type: "select",
       url: getTestUrlForGroup(groupName),
@@ -506,7 +512,7 @@ function overwriteProxyGroups(params) {
     },
   ];
 
-  const websiteSpecificAutoGroups = ["Steam", "Telegram", "ChatGPT", "Claude", "Spotify", "Google", "Microsoft", "Linux Do"].flatMap(groupName => {
+  const websiteSpecificAutoGroups = ["Steam", "Telegram", "ChatGPT", "Claude", "Spotify", "Google", "Microsoft", "Linux Do", "zrblog"].flatMap(groupName => {
     return [
       {
         name: `ALL - 自动选择 - ${groupName}`,
@@ -538,7 +544,6 @@ function overwriteProxyGroups(params) {
     ];
   });
 
-
   if (otherAutoProxyGroup) {
     autoProxyGroups.push(otherAutoProxyGroup);
   }
@@ -566,10 +571,12 @@ function overwriteDns(params, proxyName) {
 
   const dnsOptions = {
     enable: true,
-    "prefer-h3": true,
+    "prefer-h3": false,
     "default-nameserver": cnDnsList,
     nameserver: trustDnsList,
     "nameserver-policy": {
+    	"domain:zrblog.net": ["223.5.5.5","1.12.12.12"],
+    	"domain:www.zrblog.net": ["223.5.5.5","1.12.12.12"],
       "geosite:cn": cnDnsList,
       "geoip:cn": cnDnsList,
       "geosite:geolocation-!cn": trustDnsList,
@@ -622,7 +629,15 @@ function overwriteDns(params, proxyName) {
     },
     "geodata-mode": true,
     "geox-url": accelURLs,
-    "fake-ip-filter": ["geoip:cn"],
+  	"fake-ip-filter": [
+  	  "*.lan",
+  	  "*.local",
+  	  "*.msftconnecttest.com",
+  	  "localhost.ptlogin2.qq.com",
+  	  "+.stun.*",
+  	  "zrblog.net",
+  	  "geoip:cn"
+  	],
   };
 
   params.dns = { ...params.dns, ...dnsOptions };
