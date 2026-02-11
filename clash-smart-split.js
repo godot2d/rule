@@ -40,7 +40,6 @@ function main(params) {
   return params;
 }
 
-
 const countryRegions = [
 	{ code: "HK", name: "香港", icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/hk.svg", regex: /(香港|HK|Hong Kong|🇭🇰)(?!.*(中国|CN|China|PRC|🇨🇳))/i },
 	{ code: "TW", name: "台湾", icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/tw.svg", regex: /(台湾|TW|Taiwan|🇹🇼)(?!.*(中国|CN|China|PRC|🇨🇳))(?!.*Networks)/i },  
@@ -156,6 +155,7 @@ const customRules = [
 	"IP-CIDR,1.12.12.12/32,代理模式"
 ];
 
+// 覆写规则
 function overwriteRules(params) {
 	const rules = [
 		...customRules,
@@ -365,7 +365,9 @@ function overwriteRules(params) {
 	params["rules"] = rules;
 }
 
+// 覆写代理组
 function overwriteProxyGroups(params) {
+	// 所有代理
   const allProxies = params["proxies"].map((e) => e.name);
 
   const availableCountryCodes = new Set();
@@ -398,6 +400,7 @@ function overwriteProxyGroups(params) {
     .map(region => ({
       name: `${region.code} - 自动选择`,
       regex: region.regex,
+      code: region.code
     }));
 
   const autoProxyGroups = autoProxyGroupRegexs
@@ -420,7 +423,8 @@ function overwriteProxyGroups(params) {
       proxies: getManualProxiesByRegex(params, region.regex),
       icon: region.icon,
       hidden: false,
-    })).filter(item => item.proxies.length > 0);
+    }))
+    .filter(item => item.proxies.length > 0);
 
   let otherManualProxyGroup = null;
   let otherAutoProxyGroup = null;
@@ -445,6 +449,8 @@ function overwriteProxyGroups(params) {
     };
   }
 
+  const aiLimitedCountries = ["TW", "SG", "JP", "KR"];
+
   const groups = [
     {
       name: proxyName,
@@ -465,9 +471,11 @@ function overwriteProxyGroups(params) {
       name: "自动选择",
       type: "select",
       icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/speed.svg",
-      proxies: ["ALL - 自动选择", ...autoProxyGroups
-        .filter(group => !["Steam", "Telegram", "ChatGPT", "Claude", "Spotify", "Google", "Microsoft", "Linux Do", "zrblog"].includes(group.name))
-        .map(group => group.name), otherAutoProxyGroup ? otherAutoProxyGroup.name : null].filter(Boolean),
+      proxies: [
+        "ALL - 自动选择",
+        ...autoProxyGroups.map(g => g.name),
+        otherAutoProxyGroup ? otherAutoProxyGroup.name : null
+      ].filter(Boolean),
     },
 
     {
@@ -506,24 +514,40 @@ function overwriteProxyGroups(params) {
       hidden: true,
     },
 
-    ...["Steam", "Telegram", "ChatGPT", "Claude", "Spotify", "Google", "Microsoft", "Linux Do", "zrblog"].map(groupName => ({
-      name: groupName,
-      type: "select",
-      url: getTestUrlForGroup(groupName),
-      icon: getIconForGroup(groupName),
-      proxies: [
-        proxyName,
-        "DIRECT",
-        `ALL - 自动选择 - ${groupName}`, 
-        ...countryRegions
-          .filter(region => availableCountryCodes.has(region.code))
-          .flatMap(region => [
-            `${region.code} - 自动选择 - ${groupName}`, 
-            `${region.code} - 手动选择`,
-          ]),
-        otherAutoProxyGroup ? `${otherAutoProxyGroup.name} - ${groupName}` : null,
-      ].filter(Boolean),
-    })),
+    // 网站分组
+    ...["Steam", "Telegram", "ChatGPT", "Claude", "Spotify", "Google", "Microsoft", "Linux Do", "zrblog"].map(groupName => {
+
+      const isAIGroup = ["ChatGPT", "Claude"].includes(groupName);
+
+      const allowedRegions = isAIGroup
+        ? countryRegions.filter(r => aiLimitedCountries.includes(r.code))
+        : countryRegions.filter(r => availableCountryCodes.has(r.code));
+
+      return {
+        name: groupName,
+        type: "select",
+        url: getTestUrlForGroup(groupName),
+        icon: getIconForGroup(groupName),
+
+        proxies: isAIGroup
+          ? [
+              "DIRECT",
+              ...allowedRegions.flatMap(region => [
+                `${region.code} - 自动选择 - ${groupName}`,
+                `${region.code} - 手动选择`,
+              ]),
+            ]
+          : [
+              proxyName,
+              "DIRECT",
+              `ALL - 自动选择 - ${groupName}`,
+              ...allowedRegions.flatMap(region => [
+                `${region.code} - 自动选择 - ${groupName}`,
+                `${region.code} - 手动选择`,
+              ]),
+            ]
+      };
+    }),
 
     {
       name: "漏网之鱼",
@@ -532,7 +556,6 @@ function overwriteProxyGroups(params) {
       icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/fish.svg",
       hidden: true,
     },
-
     {
       name: "广告拦截",
       type: "select",
@@ -542,48 +565,66 @@ function overwriteProxyGroups(params) {
     },
   ];
 
-  const websiteSpecificAutoGroups = ["Steam", "Telegram", "ChatGPT", "Claude", "Spotify", "Google", "Microsoft", "Linux Do", "zrblog"].flatMap(groupName => {
-    return [
-      {
-        name: `ALL - 自动选择 - ${groupName}`,
-        type: "url-test",
-        url: getTestUrlForGroup(groupName), 
-        interval: 300,
-        tolerance: 50,
-        proxies: allProxies.length > 0 ? allProxies : ["DIRECT"],
-        hidden: true,
-      },
-      ...autoProxyGroupRegexs.map(item => ({
-        name: `${item.name} - ${groupName}`,
-        type: "url-test",
-        url: getTestUrlForGroup(groupName),
-        interval: 300,
-        tolerance: 50,
-        proxies: getProxiesByRegex(params, item.regex),
-        hidden: true,
-      })).filter(item => item.proxies.length > 0),
-      ...(otherAutoProxyGroup ? [{
-        name: `${otherAutoProxyGroup.name} - ${groupName}`,
-        type: "url-test",
-        url: getTestUrlForGroup(groupName), 
-        interval: 300,
-        tolerance: 50,
-        proxies: otherProxies,
-        hidden: true,
-      }] : []),
-    ];
-  });
+  const websiteSpecificAutoGroups =
+    ["Steam", "Telegram", "ChatGPT", "Claude", "Spotify", "Google", "Microsoft", "Linux Do", "zrblog"]
+      .flatMap(groupName => {
 
-  if (otherAutoProxyGroup) {
-    autoProxyGroups.push(otherAutoProxyGroup);
-  }
+        const isAIGroup = ["ChatGPT", "Claude"].includes(groupName);
+
+        const allowedRegexs = isAIGroup
+          ? autoProxyGroupRegexs.filter(r => aiLimitedCountries.includes(r.code))
+          : autoProxyGroupRegexs;
+
+        const aiCombinedRegex = new RegExp(
+          countryRegions
+            .filter(r => aiLimitedCountries.includes(r.code))
+            .map(r => r.regex.source)
+            .join("|"),
+          "i"
+        );
+
+        return [
+          {
+            name: `ALL - 自动选择 - ${groupName}`,
+            type: "url-test",
+            url: getTestUrlForGroup(groupName),
+            interval: 300,
+            tolerance: 50,
+            proxies: isAIGroup
+              ? getProxiesByRegex(params, aiCombinedRegex)
+              : allProxies,
+            hidden: true,
+          },
+
+          ...allowedRegexs.map(item => ({
+            name: `${item.name} - ${groupName}`,
+            type: "url-test",
+            url: getTestUrlForGroup(groupName),
+            interval: 300,
+            tolerance: 50,
+            proxies: getProxiesByRegex(params, item.regex),
+            hidden: true,
+          })),
+
+          ...(otherAutoProxyGroup && !isAIGroup ? [{
+            name: `${otherAutoProxyGroup.name} - ${groupName}`,
+            type: "url-test",
+            url: getTestUrlForGroup(groupName),
+            interval: 300,
+            tolerance: 50,
+            proxies: otherProxies,
+            hidden: true,
+          }] : [])
+        ];
+      });
+
+  if (otherAutoProxyGroup) autoProxyGroups.push(otherAutoProxyGroup);
 
   groups.push(...autoProxyGroups);
   groups.push(...manualProxyGroupsConfig);
-  if (otherManualProxyGroup) {
-    groups.push(otherManualProxyGroup);
-  }
-  groups.push(...websiteSpecificAutoGroups); 
+  if (otherManualProxyGroup) groups.push(otherManualProxyGroup);
+  groups.push(...websiteSpecificAutoGroups);
+
   params["proxy-groups"] = groups;
 }
 
