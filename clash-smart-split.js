@@ -112,6 +112,8 @@ function getIconForGroup(groupName) {
 		return "https://linux.do/uploads/default/original/3X/9/d/9dd49731091ce8656e94433a26a3ef36062b3994.png";
 	case "zrblog":
 		return "https://www.zrblog.net/favicon.ico";
+	case "Binance":
+  	return "https://bin.bnbstatic.com/static/images/common/favicon.ico";
 	case "Steam":
 		return "https://fastly.jsdelivr.net/gh/Orz-3/mini@master/Color/Steam.png";
 	case "Telegram":
@@ -161,6 +163,7 @@ function overwriteRules(params) {
 		...customRules,
 		"RULE-SET,BiliBili,DIRECT",
 		"RULE-SET,steam,Steam",
+		"RULE-SET,binance,Binance",
 		"RULE-SET,telegramcidr,Telegram,no-resolve",
 		"RULE-SET,openai,ChatGPT",
 		"RULE-SET,claude,Claude",
@@ -250,6 +253,12 @@ function overwriteRules(params) {
 			behavior: "classical",
 			url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Claude/Claude.yaml",
 			path: "./ruleset/custom/Claude.yaml",
+		},
+		binance: {
+			...ruleProviderCommon,
+			behavior: "classical",
+			url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/classical/binance.yaml",
+			path: "./ruleset/custom/binance.yaml",
 		},
 		BiliBili: {
 			...ruleProviderCommon,
@@ -450,6 +459,7 @@ function overwriteProxyGroups(params) {
   }
 
   const aiLimitedCountries = ["TW", "SG", "JP", "KR"];
+  const binanceLimitedCountries = ["SG", "JP", "KR"];
 
   const groups = [
     {
@@ -515,20 +525,19 @@ function overwriteProxyGroups(params) {
     },
 
     // 网站分组
-    ...["Steam", "Telegram", "ChatGPT", "Claude", "Spotify", "Google", "Microsoft", "Linux Do", "zrblog"].map(groupName => {
-
+    ...["Steam", "Telegram", "ChatGPT", "Claude", "Spotify", "Google", "Microsoft", "Linux Do", "zrblog", "Binance"].map(groupName => {
       const isAIGroup = ["ChatGPT", "Claude"].includes(groupName);
-
-      const allowedRegions = isAIGroup
-        ? countryRegions.filter(r => aiLimitedCountries.includes(r.code))
-        : countryRegions.filter(r => availableCountryCodes.has(r.code));
-
+      const isBinanceGroup = groupName === "Binance";
+			const allowedRegions = isAIGroup
+			  ? countryRegions.filter(r => aiLimitedCountries.includes(r.code))
+			  : isBinanceGroup
+			  ? countryRegions.filter(r => binanceLimitedCountries.includes(r.code))
+			  : countryRegions.filter(r => availableCountryCodes.has(r.code));
       return {
         name: groupName,
         type: "select",
         url: getTestUrlForGroup(groupName),
         icon: getIconForGroup(groupName),
-
         proxies: isAIGroup
           ? [
               "DIRECT",
@@ -566,15 +575,15 @@ function overwriteProxyGroups(params) {
   ];
 
   const websiteSpecificAutoGroups =
-    ["Steam", "Telegram", "ChatGPT", "Claude", "Spotify", "Google", "Microsoft", "Linux Do", "zrblog"]
+    ["Steam", "Telegram", "ChatGPT", "Claude", "Spotify", "Google", "Microsoft", "Linux Do", "zrblog", "Binance"]
       .flatMap(groupName => {
-
         const isAIGroup = ["ChatGPT", "Claude"].includes(groupName);
-
-        const allowedRegexs = isAIGroup
-          ? autoProxyGroupRegexs.filter(r => aiLimitedCountries.includes(r.code))
-          : autoProxyGroupRegexs;
-
+        const isBinanceGroup = groupName === "Binance";
+				const allowedRegexs = isAIGroup
+				  ? autoProxyGroupRegexs.filter(r => aiLimitedCountries.includes(r.code))
+				  : isBinanceGroup
+				  ? autoProxyGroupRegexs.filter(r => binanceLimitedCountries.includes(r.code))
+				  : autoProxyGroupRegexs;
         const aiCombinedRegex = new RegExp(
           countryRegions
             .filter(r => aiLimitedCountries.includes(r.code))
@@ -590,9 +599,20 @@ function overwriteProxyGroups(params) {
             url: getTestUrlForGroup(groupName),
             interval: 300,
             tolerance: 50,
-            proxies: isAIGroup
-              ? getProxiesByRegex(params, aiCombinedRegex)
-              : allProxies,
+						proxies: isAIGroup
+						  ? getProxiesByRegex(params, aiCombinedRegex)
+						  : isBinanceGroup
+						  ? getProxiesByRegex(
+						      params,
+						      new RegExp(
+						        countryRegions
+						          .filter(r => binanceLimitedCountries.includes(r.code))
+						          .map(r => r.regex.source)
+						          .join("|"),
+						        "i"
+						      )
+						    )
+						  : allProxies,
             hidden: true,
           },
 
@@ -619,12 +639,10 @@ function overwriteProxyGroups(params) {
       });
 
   if (otherAutoProxyGroup) autoProxyGroups.push(otherAutoProxyGroup);
-
   groups.push(...autoProxyGroups);
   groups.push(...manualProxyGroupsConfig);
   if (otherManualProxyGroup) groups.push(otherManualProxyGroup);
   groups.push(...websiteSpecificAutoGroups);
-
   params["proxy-groups"] = groups;
 }
 
