@@ -416,8 +416,13 @@ proxy-groups:
   - name: "🎌 亚洲流媒体"
     type: select
     proxies:
-      - DIRECT
-      - REJECT
+      - 🇭🇰 香港
+      - 🇸🇬 新加坡
+      - 🇯🇵 日本
+      - 🇹🇼 台湾
+      - 🇰🇷 韩国
+      - 🚀 节点选择
+      - ⚡ 自动选择
 
   - name: "🏠 私有网络"
     type: select
@@ -541,7 +546,6 @@ rule-providers:
   twitch: {type: http, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/twitch.mrs", path: ./ruleset/twitch.mrs, interval: 86400, format: mrs}
   dazn: {type: http, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/dazn.mrs", path: ./ruleset/dazn.mrs, interval: 86400, format: mrs}
   bahamut: {type: http, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/bahamut.mrs", path: ./ruleset/bahamut.mrs, interval: 86400, format: mrs}
-  bilibili: {type: http, behavior: domain, url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/bilibili.mrs, path: ./ruleset/bilibili.mrs, interval: 86400, format: mrs}
   biliintl: {type: http, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/biliintl.mrs", path: ./ruleset/biliintl.mrs, interval: 86400, format: mrs}
   niconico: {type: http, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/niconico.mrs", path: ./ruleset/niconico.mrs, interval: 86400, format: mrs}
   abema: {type: http, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/abema.mrs", path: ./ruleset/abema.mrs, interval: 86400, format: mrs}
@@ -654,7 +658,6 @@ rules:
   - RULE-SET,dazn,📺 欧美流媒体
   - RULE-SET,bahamut,🎌 亚洲流媒体
   - RULE-SET,biliintl,🎌 亚洲流媒体
-  - RULE-SET,bilibili,🎌 亚洲流媒体
   - RULE-SET,niconico,🎌 亚洲流媒体
   - RULE-SET,abema,🎌 亚洲流媒体
   - RULE-SET,viu,🎌 亚洲流媒体
