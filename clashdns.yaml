@@ -288,13 +288,8 @@ proxy-groups:
   - name: "🎌 亚洲流媒体"
     type: select
     proxies:
-      - 🇭🇰 香港
-      - 🇸🇬 新加坡
-      - 🇯🇵 日本
-      - 🇹🇼 台湾
-      - 🇰🇷 韩国
-      - 🚀 节点选择
-      - ⚡ 自动选择
+      - DIRECT
+      - REJECT
 
   - name: "🎮 Steam"
     type: select
