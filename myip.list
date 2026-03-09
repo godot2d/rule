@@ -7,17 +7,6 @@ DOMAIN-SUFFIX,gitee.com
 DOMAIN-SUFFIX,pcgeshi.com
 DOMAIN-SUFFIX,hybgzs.com
 
-#unity
-PROCESS-NAME,Unity.exe
-PROCESS-NAME,Unity Hub.exe
-PROCESS-NAME,Unity Hub.exe
-PROCESS-NAME,Unity*
-DOMAIN-SET,unity.com
-DOMAIN-SUFFIX,unity.com
-DOMAIN-SUFFIX,unity3d.com
-DOMAIN-SUFFIX,unity.cn
-DOMAIN-SUFFIX,unityassets.com
-DOMAIN-SUFFIX,assetstore.unity3d.com
 
 
 #网上其他规则
