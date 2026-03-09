@@ -11,6 +11,11 @@ proxy-groups:
   - name: 🚀 手动切换
     type: select
     include-all: true
+  - name: 🛑 广告拦截
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
   - name: ♻️ 自动选择
     type: url-test
     include-all: true
@@ -25,12 +30,6 @@ proxy-groups:
       - ♻️ 自动选择
       - 🚀 手动切换
       - DIRECT
-  - name: 🎯 全球直连
-    type: select
-    proxies:
-      - DIRECT
-      - 🚀 节点选择
-      - ♻️ 自动选择
   - name: 🤖 人工智能
     type: select
     proxies:
@@ -47,11 +46,6 @@ proxy-groups:
       - ♻️ 自动选择
       - DIRECT
       - 🚀 手动切换
-  - name: 🛑 广告拦截
-    type: select
-    proxies:
-      - REJECT
-      - DIRECT
   - name: 🌍 非自己节点
     type: url-test
     include-all: true
@@ -73,22 +67,14 @@ proxy-groups:
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 150
+  - name: 🎯 全球直连
+    type: select
+    proxies:
+      - DIRECT
+      - 🚀 节点选择
+      - ♻️ 自动选择
 
 rule-providers:
-  ai:
-    url: https://raw.githubusercontent.com/godot2d/rule/refs/heads/master/ai.list
-    path: ./ruleset/ai.list
-    behavior: classical
-    interval: 86400
-    format: text
-    type: http
-  ai_1:
-    url: https://raw.githubusercontent.com/juewuy/ShellClash/master/rules/ai.list
-    path: ./ruleset/ai_1.list
-    behavior: classical
-    interval: 86400
-    format: text
-    type: http
   BanAD:
     url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanAD.list
     path: ./ruleset/BanAD.list
@@ -106,6 +92,27 @@ rule-providers:
   PrivateTracker:
     url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/PrivateTracker.list
     path: ./ruleset/PrivateTracker.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  ai:
+    url: https://raw.githubusercontent.com/godot2d/rule/refs/heads/master/ai.list
+    path: ./ruleset/ai.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  ai_4:
+    url: https://raw.githubusercontent.com/juewuy/ShellClash/master/rules/ai.list
+    path: ./ruleset/ai_4.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  ProxyMedia:
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyMedia.list
+    path: ./ruleset/ProxyMedia.list
     behavior: classical
     interval: 86400
     format: text
@@ -145,24 +152,17 @@ rule-providers:
     interval: 86400
     format: text
     type: http
-  ProxyMedia:
-    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyMedia.list
-    path: ./ruleset/ProxyMedia.list
-    behavior: classical
-    interval: 86400
-    format: text
-    type: http
 
 rules:
-  - RULE-SET,ai,🤖 人工智能
-  - RULE-SET,ai_1,🤖 人工智能
   - RULE-SET,BanAD,🛑 广告拦截
   - RULE-SET,BanProgramAD,🛑 广告拦截
   - RULE-SET,PrivateTracker,🛑 广告拦截
+  - RULE-SET,ai,🤖 人工智能
+  - RULE-SET,ai_4,🤖 人工智能
+  - RULE-SET,ProxyMedia,🌍 国外媒体
   - RULE-SET,ChinaDomain,🎯 全球直连
   - RULE-SET,ChinaIpV6,🎯 全球直连
   - RULE-SET,ChinaIp,🎯 全球直连
   - RULE-SET,myip,🎯 全球直连
   - RULE-SET,GoogleCN,🎯 全球直连
-  - RULE-SET,ProxyMedia,🌍 国外媒体
   - MATCH,🐟 漏网之鱼
