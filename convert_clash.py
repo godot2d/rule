@@ -115,7 +115,7 @@ def parse_ini(file_path):
                 if filter_expr:
                     group['filter'] = filter_expr
 
-            elif g_type == 'relay':
+            elif g_type == 'dialer-proxy':
                 potential_proxies = parts[2:]
                 proxies = []
                 for p in potential_proxies:
