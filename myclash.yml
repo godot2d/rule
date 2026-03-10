@@ -31,7 +31,7 @@ proxy-groups:
       - 🚀 手动切换
       - DIRECT
   - name: 🤖 人工智能
-    type: dialer-proxy
+    type: relay
     proxies:
       - 🚀 节点选择
       - 🏠 自己节点
