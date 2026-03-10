@@ -100,7 +100,7 @@ rule-providers:
     format: text
     type: http
   myai:
-    url: https://raw.githubusercontent.com/godot2d/rule/refs/heads/master/myai.list
+    url: https://raw.githubusercontent.com/godot2d/rule/master/myai.list
     path: ./ruleset/myai.list
     behavior: classical
     interval: 86400
@@ -142,7 +142,7 @@ rule-providers:
     format: text
     type: http
   myip:
-    url: https://raw.githubusercontent.com/godot2d/rule/refs/heads/master/myip.list
+    url: https://raw.githubusercontent.com/godot2d/rule/master/myip.list
     path: ./ruleset/myip.list
     behavior: classical
     interval: 86400
