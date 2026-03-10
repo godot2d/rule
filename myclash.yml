@@ -16,6 +16,8 @@ proxy-groups:
     proxies:
       - 🏠 自己节点
       - 🚀 节点选择
+      - 🇸🇬 新加坡节点
+      - 🇺🇲 美国节点
   - name: 🎯 全球直连
     type: select
     proxies:
