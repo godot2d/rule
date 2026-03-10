@@ -10,3 +10,7 @@ DOMAIN-SUFFIX,unity3d.com
 DOMAIN-SUFFIX,unity.cn
 DOMAIN-SUFFIX,unityassets.com
 DOMAIN-SUFFIX,assetstore.unity3d.com
+
+#claude
+PROCESS-NAME,claude.exe
+PROCESS-NAME,claude*

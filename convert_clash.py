@@ -114,6 +114,21 @@ def parse_ini(file_path):
                 
                 if filter_expr:
                     group['filter'] = filter_expr
+
+            elif g_type == 'relay':
+                potential_proxies = parts[2:]
+                proxies = []
+                for p in potential_proxies:
+                    if '[]' in p:
+                        p_clean = p.replace('[]', '').strip()
+                        if p_clean:
+                            proxies.append(p_clean)
+                    else:
+                        if p.strip():
+                            proxies.append(p.strip())
+                
+                if proxies:
+                    group['proxies'] = proxies
                     
             elif g_type == 'url-test':
                 # parts: Name, Type, Filter, URL, Interval...

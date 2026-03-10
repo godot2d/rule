@@ -31,14 +31,10 @@ proxy-groups:
       - 🚀 手动切换
       - DIRECT
   - name: 🤖 人工智能
-    type: select
+    type: relay
     proxies:
-      - 🇸🇬 新加坡节点
-      - 🇺🇲 美国节点
       - 🚀 节点选择
-      - ♻️ 自动选择
-      - DIRECT
-      - 🚀 手动切换
+      - 🏠 自己节点
   - name: 🐟 漏网之鱼
     type: select
     proxies:
@@ -50,6 +46,13 @@ proxy-groups:
     type: url-test
     include-all: true
     filter: ^(?!.*\d+\.\d+\.\d+\.\d+).*$
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+  - name: 🏠 自己节点
+    type: url-test
+    include-all: true
+    filter: \d+\.\d+\.\d+\.\d+
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 50
@@ -96,16 +99,16 @@ rule-providers:
     interval: 86400
     format: text
     type: http
-  ai:
-    url: https://raw.githubusercontent.com/godot2d/rule/refs/heads/master/ai.list
-    path: ./ruleset/ai.list
+  myai:
+    url: https://raw.githubusercontent.com/godot2d/rule/refs/heads/master/myai.list
+    path: ./ruleset/myai.list
     behavior: classical
     interval: 86400
     format: text
     type: http
-  ai_4:
+  ai:
     url: https://raw.githubusercontent.com/juewuy/ShellClash/master/rules/ai.list
-    path: ./ruleset/ai_4.list
+    path: ./ruleset/ai.list
     behavior: classical
     interval: 86400
     format: text
@@ -157,8 +160,8 @@ rules:
   - RULE-SET,BanAD,🛑 广告拦截
   - RULE-SET,BanProgramAD,🛑 广告拦截
   - RULE-SET,PrivateTracker,🛑 广告拦截
+  - RULE-SET,myai,🤖 人工智能
   - RULE-SET,ai,🤖 人工智能
-  - RULE-SET,ai_4,🤖 人工智能
   - RULE-SET,ProxyMedia,🌍 国外媒体
   - RULE-SET,ChinaDomain,🎯 全球直连
   - RULE-SET,ChinaIpV6,🎯 全球直连
