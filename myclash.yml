@@ -11,6 +11,13 @@ proxy-groups:
   - name: 🚀 手动切换
     type: select
     include-all: true
+  - name: 🤖 claude
+    type: select
+    proxies:
+      - 🏠 自己节点
+      - 🚀 节点选择
+      - 🇸🇬 新加坡节点
+      - 🇺🇲 美国节点
   - name: 🤖 人工智能
     type: select
     proxies:
@@ -80,6 +87,13 @@ proxy-groups:
       - 🚀 手动切换
 
 rule-providers:
+  claude:
+    url: https://raw.githubusercontent.com/godot2d/rule/master/claude.list
+    path: ./ruleset/claude.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
   myai:
     url: https://raw.githubusercontent.com/godot2d/rule/master/myai.list
     path: ./ruleset/myai.list
@@ -159,6 +173,7 @@ rule-providers:
     type: http
 
 rules:
+  - RULE-SET,claude,🤖 claude
   - RULE-SET,myai,🤖 人工智能
   - RULE-SET,ai,🤖 人工智能
   - RULE-SET,BanAD,🛑 广告拦截
