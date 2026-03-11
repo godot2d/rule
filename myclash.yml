@@ -14,6 +14,7 @@ proxy-groups:
   - name: 🤖 claude
     type: select
     proxies:
+      - 🏠 住宅IP
       - 🏠 自己节点
       - 🚀 节点选择
       - 🇸🇬 新加坡节点
@@ -56,6 +57,10 @@ proxy-groups:
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 50
+  - name: 🏠 住宅IP
+    type: select
+    include-all: true
+    filter: (住宅|家宽|Residential|ISP|IP|ip)
   - name: 🇸🇬 新加坡节点
     type: url-test
     include-all: true
