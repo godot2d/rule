@@ -60,7 +60,7 @@ proxy-groups:
   - name: 🏠 住宅IP
     type: select
     include-all: true
-    filter: (住宅|家宽|Residential|ISP|IP|ip)
+    filter: (住宅|家宽|Residential|ISP)
   - name: 🇸🇬 新加坡节点
     type: url-test
     include-all: true
