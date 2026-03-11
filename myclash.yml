@@ -4,7 +4,6 @@ proxy-groups:
     proxies:
       - ♻️ 自动选择
       - 🚀 手动切换
-      - 🌍 非自己节点
       - 🇸🇬 新加坡节点
       - 🇺🇲 美国节点
       - DIRECT
