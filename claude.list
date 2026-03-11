@@ -1,3 +1,6 @@
 DOMAIN-SUFFIX,claude.ai
 DOMAIN-SUFFIX,Anthropic.com
 DOMAIN-SUFFIX,ipinfo.io
+DOMAIN-SUFFIX,claude.com
+DOMAIN-SUFFIX,Anthropic.*
+DOMAIN-SUFFIX,claude.*
