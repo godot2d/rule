@@ -15,7 +15,6 @@ proxy-groups:
     type: select
     proxies:
       - 🏠 住宅IP
-      - 🏠 自己节点
       - 🚀 节点选择
       - 🇸🇬 新加坡节点
       - 🇺🇲 美国节点
@@ -23,7 +22,6 @@ proxy-groups:
     type: select
     proxies:
       - 🇺🇲 美国节点
-      - 🏠 自己节点
       - 🚀 节点选择
       - 🇸🇬 新加坡节点
   - name: 🎯 全球直连
@@ -40,20 +38,14 @@ proxy-groups:
   - name: ♻️ 自动选择
     type: url-test
     include-all: true
+    filter: ^(?!.*ISP).*
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 50
-  - name: 🌍 非自己节点
+  - name: 🌍 机场节点
     type: url-test
     include-all: true
-    filter: ^(?!.*\d+\.\d+\.\d+\.\d+).*$
-    url: http://www.gstatic.com/generate_204
-    interval: 300
-    tolerance: 50
-  - name: 🏠 自己节点
-    type: url-test
-    include-all: true
-    filter: \d+\.\d+\.\d+\.\d+
+    filter: ^(?!.*ISP)(?!.*\d+\.\d+\.\d+\.\d+).*
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 50
@@ -78,7 +70,7 @@ proxy-groups:
   - name: 🌍 国外媒体
     type: select
     proxies:
-      - 🌍 非自己节点
+      - 🌍 机场节点
       - 🚀 节点选择
       - ♻️ 自动选择
       - 🚀 手动切换
