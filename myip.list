@@ -6,8 +6,7 @@ DOMAIN-SUFFIX,deepseek.com
 DOMAIN-SUFFIX,gitee.com
 DOMAIN-SUFFIX,pcgeshi.com
 DOMAIN-SUFFIX,hybgzs.com
-
-
+DOMAIN-SUFFIX,cocos.com
 
 #网上其他规则
 DOMAIN,subapi.doggysub.uk
