@@ -38,14 +38,14 @@ proxy-groups:
     type: url-test
     include-all: true
     filter: ^(?!.*ISP).*
-    url: http://cachefly.cachefly.net/10mb.test
+    url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 50
   - name: 🌍 机场节点
     type: url-test
     include-all: true
     filter: ^(?!.*ISP)(?!.*\d+\.\d+\.\d+\.\d+).*
-    url: http://cachefly.cachefly.net/10mb.test
+    url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 50
   - name: 🏠 住宅IP
@@ -56,14 +56,14 @@ proxy-groups:
     type: url-test
     include-all: true
     filter: (新加坡|坡|狮城|SG|Singapore)
-    url: http://cachefly.cachefly.net/10mb.test
+    url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 50
   - name: 🇺🇲 美国节点
     type: url-test
     include-all: true
     filter: (美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United States)
-    url: http://cachefly.cachefly.net/10mb.test
+    url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 150
   - name: 🌍 国外媒体
