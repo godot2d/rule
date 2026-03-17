@@ -7,8 +7,12 @@ DOMAIN-SUFFIX,gitee.com
 DOMAIN-SUFFIX,pcgeshi.com
 DOMAIN-SUFFIX,hybgzs.com
 DOMAIN-SUFFIX,cocos.com
+DOMAIN-SUFFIX,servicewechat.com
 
 #网上其他规则
+PROCESS-NAME,wechat*
+PROCESS-NAME,servicewechat.com
+PROCESS-NAME,WeChatAppEx.exe
 DOMAIN,subapi.doggysub.uk
 PROCESS-NAME,v2ray
 PROCESS-NAME,xray
