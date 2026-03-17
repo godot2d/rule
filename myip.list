@@ -11,6 +11,7 @@ DOMAIN-SUFFIX,servicewechat.com
 
 #网上其他规则
 PROCESS-NAME,wechat*
+PROCESS-NAME,wechatdevtools.exe
 PROCESS-NAME,servicewechat.com
 PROCESS-NAME,WeChatAppEx.exe
 DOMAIN,subapi.doggysub.uk
