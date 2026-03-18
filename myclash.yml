@@ -34,6 +34,12 @@ proxy-groups:
     proxies:
       - REJECT
       - DIRECT
+  - name: 🛑 个人拦截
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+      - 🚀 节点选择
   - name: ♻️ 自动选择
     type: url-test
     include-all: true
@@ -98,8 +104,15 @@ rule-providers:
     format: text
     type: http
   ai:
-    url: https://raw.githubusercontent.com/juewuy/ShellClash/master/rules/ai.list
+    url: https://raw.githubusercontent.com/juewuy/ShellClash/master/rules /ai.list
     path: ./ruleset/ai.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  direct:
+    url: https://raw.githubusercontent.com/godot2d/rule/master/direct.list
+    path: ./ruleset/direct.list
     behavior: classical
     interval: 86400
     format: text
@@ -172,6 +185,7 @@ rules:
   - RULE-SET,claude,🤖 claude
   - RULE-SET,myai,🤖 人工智能
   - RULE-SET,ai,🤖 人工智能
+  - RULE-SET,direct,🛑 个人拦截
   - RULE-SET,BanAD,🛑 广告拦截
   - RULE-SET,BanProgramAD,🛑 广告拦截
   - RULE-SET,PrivateTracker,🛑 广告拦截
