@@ -104,7 +104,7 @@ rule-providers:
     format: text
     type: http
   ai:
-    url: https://raw.githubusercontent.com/juewuy/ShellClash/master/rules /ai.list
+    url: https://raw.githubusercontent.com/juewuy/ShellClash/master/rules/ai.list
     path: ./ruleset/ai.list
     behavior: classical
     interval: 86400
