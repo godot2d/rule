@@ -1,4 +1,5 @@
 DOMAIN-SUFFIX,stitch.withgoogle.com
+DOMAIN-SUFFIX,labs.google
 #unity
 PROCESS-NAME,Unity.exe
 PROCESS-NAME,Unity Hub.exe
