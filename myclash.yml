@@ -96,16 +96,16 @@ rule-providers:
     interval: 86400
     format: text
     type: http
-  myai:
-    url: https://raw.githubusercontent.com/godot2d/rule/master/myai.list
-    path: ./ruleset/myai.list
+  ai:
+    url: https://raw.githubusercontent.com/juewuy/ShellClash/master/rules/ai.list
+    path: ./ruleset/ai.list
     behavior: classical
     interval: 86400
     format: text
     type: http
-  ai:
-    url: https://raw.githubusercontent.com/juewuy/ShellClash/master/rules/ai.list
-    path: ./ruleset/ai.list
+  myai:
+    url: https://raw.githubusercontent.com/godot2d/rule/master/myai.list
+    path: ./ruleset/myai.list
     behavior: classical
     interval: 86400
     format: text
@@ -183,8 +183,8 @@ rule-providers:
 
 rules:
   - RULE-SET,claude,🤖 claude
-  - RULE-SET,myai,🤖 人工智能
   - RULE-SET,ai,🤖 人工智能
+  - RULE-SET,myai,🤖 人工智能
   - RULE-SET,direct,🛑 个人拦截
   - RULE-SET,BanAD,🛑 广告拦截
   - RULE-SET,BanProgramAD,🛑 广告拦截
