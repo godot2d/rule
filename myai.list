@@ -1,10 +1,10 @@
 DOMAIN-SUFFIX,stitch.withgoogle.com
 DOMAIN-SUFFIX,labs.google
 #unity
-PROCESS-NAME,Unity.exe
+#PROCESS-NAME,Unity.exe
 PROCESS-NAME,Unity Hub.exe
 PROCESS-NAME,Unity Hub.exe
-PROCESS-NAME,Unity*
+#PROCESS-NAME,Unity*
 DOMAIN-SET,unity.com
 DOMAIN-SUFFIX,unity.com
 DOMAIN-SUFFIX,unity3d.com
