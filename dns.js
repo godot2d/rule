@@ -1,7 +1,20 @@
 // 假设 $content 是原始 YAML 字符串
 const yaml = ProxyUtils.yaml.safeLoad($content ?? $files[0]);
 
-// 新的 DNS 配置
+// ===== 在这里处理 proxies（合并 operator 逻辑）=====
+if (yaml.proxies && Array.isArray(yaml.proxies)) {
+  yaml.proxies = yaml.proxies.map(proxy => {
+
+    // Name 包含 ISP
+    if (/ISP/i.test(proxy.name)) {
+      proxy["dialer-proxy"] = "跳板选择";
+    }
+
+    return proxy;
+  });
+}
+
+// ===== DNS 配置 =====
 const dnsConfig = {
   enable: true,
   ipv6: true,
