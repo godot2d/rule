@@ -4,7 +4,7 @@ function operator(proxies, targetPlatform, context) {
 
     // Name包含 ISP
     if (/ISP/i.test(proxy.name)) {
-      proxy["dialer-proxy"] = "🇭🇰 香港节点"
+      proxy["dialer-proxy"] = "🌍 机场节点"
     }
 
     return proxy
