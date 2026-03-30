@@ -4,6 +4,8 @@ DOMAIN-SUFFIX,antigravity.google
 DOMAIN-SUFFIX,stitch.withgoogle.com
 DOMAIN-SUFFIX,labs.google
 DOMAIN-KEYWORD,antigravity
+PROCESS-NAME,Antigravity.exe
+
 #unity
 #PROCESS-NAME,Unity.exe
 PROCESS-NAME,Unity Hub.exe
