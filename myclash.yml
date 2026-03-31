@@ -61,7 +61,7 @@ proxy-groups:
   - name: 🏠 住宅IP
     type: select
     include-all: true
-    filter: (住宅|家宽|Residential|ISP)
+    filter: (美国.*住宅|美国.*家宽|Residential|ISP)
   - name: 跳板选择
     type: select
     proxies:
