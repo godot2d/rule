@@ -21,8 +21,8 @@ proxy-groups:
   - name: 🤖 人工智能
     type: select
     proxies:
-      - 🏠 住宅IP
       - 🇺🇲 美国节点
+      - 🏠 住宅IP
       - 🚀 节点选择
       - 🇸🇬 新加坡节点
       - 🇭🇰 香港节点
@@ -37,12 +37,6 @@ proxy-groups:
     proxies:
       - REJECT
       - DIRECT
-  - name: 🛑 个人拦截
-    type: select
-    proxies:
-      - REJECT
-      - DIRECT
-      - 🚀 节点选择
   - name: ♻️ 自动选择
     type: url-test
     include-all: true
@@ -57,6 +51,13 @@ proxy-groups:
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 50
+  - name: 自己节点
+    type: url-test
+    include-all: true
+    filter: (.*\d+\.\d+\.\d+\.\d+).*
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
   - name: 🏠 住宅IP
     type: select
     include-all: true
@@ -64,6 +65,7 @@ proxy-groups:
   - name: 跳板选择
     type: select
     proxies:
+      - 自己节点
       - 🇺🇲 美国节点
       - 🇭🇰 香港节点
       - ♻️ 自动选择
@@ -125,13 +127,6 @@ rule-providers:
   myai:
     url: https://raw.githubusercontent.com/godot2d/rule/master/myai.list
     path: ./ruleset/myai.list
-    behavior: classical
-    interval: 86400
-    format: text
-    type: http
-  direct:
-    url: https://raw.githubusercontent.com/godot2d/rule/master/direct.list
-    path: ./ruleset/direct.list
     behavior: classical
     interval: 86400
     format: text
@@ -204,7 +199,6 @@ rules:
   - RULE-SET,claude,🤖 claude
   - RULE-SET,ai,🤖 人工智能
   - RULE-SET,myai,🤖 人工智能
-  - RULE-SET,direct,🛑 个人拦截
   - RULE-SET,BanAD,🛑 广告拦截
   - RULE-SET,BanProgramAD,🛑 广告拦截
   - RULE-SET,PrivateTracker,🛑 广告拦截
