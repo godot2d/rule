@@ -8,6 +8,7 @@ DOMAIN-SUFFIX,pcgeshi.com
 DOMAIN-SUFFIX,hybgzs.com
 DOMAIN-SUFFIX,cocos.com
 DOMAIN-SUFFIX,servicewechat.com
+DOMAIN-SUFFIX,doubao.com
 
 #网上其他规则
 PROCESS-NAME,wechat*
