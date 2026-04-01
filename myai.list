@@ -1,4 +1,4 @@
-DOMAIN-REGEX,^(?!(translate|translate-pa)\.)googleapis\.com$
+DOMAIN-REGEX,^(?!(translate|translate-pa)\.)[\w.-]+\.googleapis\.com$
 DOMAIN-REGEX,^(?!translate\.)google\.com$
 DOMAIN-SUFFIX,antigravity.google
 DOMAIN-SUFFIX,stitch.withgoogle.com
