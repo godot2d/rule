@@ -41,6 +41,18 @@ const dnsConfig = {
   "respect-rules": true
 };
 
+// ===== 在 rules 最顶部插入翻译规则 =====
+const translateRules = [
+  "DOMAIN-SUFFIX,translate.googleapis.com,🚀 节点选择",
+  "DOMAIN-SUFFIX,translate-pa.googleapis.com,🚀 节点选择",
+  "DOMAIN-SUFFIX,translate.google.com,🚀 节点选择"
+];
+if (yaml.rules && Array.isArray(yaml.rules)) {
+  yaml.rules = [...translateRules, ...yaml.rules];
+} else {
+  yaml.rules = translateRules;
+}
+
 // 如果原 YAML 已经有 dns 节点，则覆盖，否则插入到开头
 const newYaml = { dns: dnsConfig, ...yaml };
 
