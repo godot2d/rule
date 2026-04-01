@@ -12,6 +12,16 @@ proxy-groups:
   - name: 🚀 手动切换
     type: select
     include-all: true
+  - name: 直接代理
+    type: select
+    proxies:
+      - 🌍 机场节点
+      - ♻️ 自动选择
+      - 🚀 手动切换
+      - 🇸🇬 新加坡节点
+      - 🇺🇲 美国节点
+      - 🇭🇰 香港节点
+      - DIRECT
   - name: 🤖 claude
     type: select
     proxies:
@@ -111,6 +121,13 @@ proxy-groups:
       - 🚀 手动切换
 
 rule-providers:
+  download:
+    url: https://raw.githubusercontent.com/godot2d/rule/master/download.list
+    path: ./ruleset/download.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
   claude:
     url: https://raw.githubusercontent.com/godot2d/rule/master/claude.list
     path: ./ruleset/claude.list
@@ -128,6 +145,13 @@ rule-providers:
   myai:
     url: https://raw.githubusercontent.com/godot2d/rule/master/myai.list
     path: ./ruleset/myai.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  google_ai.lst:
+    url: https://raw.githubusercontent.com/itdoginfo/allow-domains/main/Services/google_ai.lst
+    path: ./ruleset/google_ai.lst.lst
     behavior: classical
     interval: 86400
     format: text
@@ -197,9 +221,11 @@ rule-providers:
     type: http
 
 rules:
+  - RULE-SET,download,直接代理
   - RULE-SET,claude,🤖 claude
   - RULE-SET,ai,🤖 人工智能
   - RULE-SET,myai,🤖 人工智能
+  - RULE-SET,google_ai.lst,🤖 人工智能
   - RULE-SET,BanAD,🛑 广告拦截
   - RULE-SET,BanProgramAD,🛑 广告拦截
   - RULE-SET,PrivateTracker,🛑 广告拦截
