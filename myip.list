@@ -9,6 +9,8 @@ DOMAIN-SUFFIX,hybgzs.com
 DOMAIN-SUFFIX,cocos.com
 DOMAIN-SUFFIX,servicewechat.com
 DOMAIN-SUFFIX,doubao.com
+DOMAIN-SUFFIX,todesk.com
+PROCESS-NAME,ToDesk.exe
 
 #网上其他规则
 PROCESS-NAME,wechat*
