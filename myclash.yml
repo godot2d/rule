@@ -57,6 +57,11 @@ proxy-groups:
     tolerance: 50
   - name: 🌍 机场节点
     type: fallback
+    include-all: true
+    filter: ^(?!.*ISP)(?!.*\d+\.\d+\.\d+\.\d+).*
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
   - name: 自己节点
     type: url-test
     include-all: true
