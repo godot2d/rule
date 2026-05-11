@@ -25,4 +25,4 @@ DOMAIN-SUFFIX,assetstore.unity3d.com
 
 #claude
 PROCESS-NAME,claude.exe
-PROCESS-NAME,claude*
+PROCESS-NAME,Codex.exe
