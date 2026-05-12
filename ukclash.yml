@@ -16,6 +16,10 @@ proxy-groups:
     type: select
     proxies:
       - REJECT
+  - name: 🐟 漏网之鱼
+    type: select
+    proxies:
+      - 🚀 节点选择
 rule-providers:
   download:
     url: https://raw.githubusercontent.com/godot2d/rule/master/download.list
