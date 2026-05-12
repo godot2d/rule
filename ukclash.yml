@@ -7,7 +7,15 @@ proxy-groups:
   - name: 🚀 手动切换
     type: select
     include-all: true
-
+  - name: 🎯 全球直连
+    type: select
+    proxies:
+      - DIRECT
+      - 🚀 节点选择
+  - name: 🛑 广告拦截
+    type: select
+    proxies:
+      - REJECT
 rule-providers:
   download:
     url: https://raw.githubusercontent.com/godot2d/rule/master/download.list
