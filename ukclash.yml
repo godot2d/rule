@@ -146,6 +146,7 @@ rules:
   - RULE-SET,ChinaIp,🎯 全球直连
   - RULE-SET,myip,🎯 全球直连
   - RULE-SET,GoogleCN,🎯 全球直连
+  - DOMAIN-SUFFIX,www.google.com,🚀 节点选择
   - RULE-SET,ProxyMedia,延迟高专用流量
   - RULE-SET,newdownload,延迟高专用流量
   - RULE-SET,ai,延迟高专用流量
