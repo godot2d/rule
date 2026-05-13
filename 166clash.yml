@@ -1,0 +1,139 @@
+proxy-groups:
+  - name: 🚀 节点选择
+    type: select
+    proxies:
+      - 🚀 手动切换
+      - DIRECT
+  - name: 🚀 手动切换
+    type: select
+    include-all: true
+  - name: 🎯 全球直连
+    type: select
+    proxies:
+      - DIRECT
+      - 🚀 节点选择
+  - name: 🛑 广告拦截
+    type: select
+    proxies:
+      - REJECT
+  - name: 🐟 漏网之鱼
+    type: select
+    proxies:
+      - 🚀 节点选择
+rule-providers:
+  newdownload:
+    url: https://raw.githubusercontent.com/godot2d/rule/master/newdownload.list
+    path: ./ruleset/download.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  download:
+    url: https://raw.githubusercontent.com/godot2d/rule/master/download.list
+    path: ./ruleset/download.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  claude:
+    url: https://raw.githubusercontent.com/godot2d/rule/master/claude.list
+    path: ./ruleset/claude.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  ai:
+    url: https://raw.githubusercontent.com/juewuy/ShellClash/master/rules/ai.list
+    path: ./ruleset/ai.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  myai:
+    url: https://raw.githubusercontent.com/godot2d/rule/master/myai.list
+    path: ./ruleset/myai.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  google_ai.lst:
+    url: https://raw.githubusercontent.com/itdoginfo/allow-domains/main/Services/google_ai.lst
+    path: ./ruleset/google_ai.lst.lst
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  BanAD:
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanAD.list
+    path: ./ruleset/BanAD.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  BanProgramAD:
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanProgramAD.list
+    path: ./ruleset/BanProgramAD.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  PrivateTracker:
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/PrivateTracker.list
+    path: ./ruleset/PrivateTracker.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  ChinaDomain:
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaDomain.list
+    path: ./ruleset/ChinaDomain.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  ChinaIpV6:
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaIpV6.list
+    path: ./ruleset/ChinaIpV6.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  ChinaIp:
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaIp.list
+    path: ./ruleset/ChinaIp.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  myip:
+    url: https://raw.githubusercontent.com/godot2d/rule/master/myip.list
+    path: ./ruleset/myip.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  GoogleCN:
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/GoogleCN.list
+    path: ./ruleset/GoogleCN.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+  ProxyMedia:
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyMedia.list
+    path: ./ruleset/ProxyMedia.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+
+rules:
+  - RULE-SET,BanAD,🛑 广告拦截
+  - RULE-SET,BanProgramAD,🛑 广告拦截
+  - RULE-SET,PrivateTracker,🛑 广告拦截
+  - RULE-SET,ChinaDomain,🎯 全球直连
+  - RULE-SET,ChinaIpV6,🎯 全球直连
+  - RULE-SET,ChinaIp,🎯 全球直连
+  - RULE-SET,myip,🎯 全球直连
+  - RULE-SET,GoogleCN,🎯 全球直连
+  - MATCH,🐟 漏网之鱼
