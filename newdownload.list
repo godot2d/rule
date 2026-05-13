@@ -1,0 +1,8 @@
+DOMAIN-SUFFIX,release-assets.githubusercontent.com
+PROCESS-NAME,curl.exe
+PROCESS-NAME,wget.exe
+PROCESS-NAME,aria2c.exe
+PROCESS-NAME,git.exe
+PROCESS-NAME,gopeed.exe
+PROCESS-NAME,pip.exe
+PROCESS-NAME,pip3.exe
