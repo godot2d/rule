@@ -141,9 +141,9 @@ rule-providers:
     interval: 86400
     format: text
     type: http
-  google_ai.lst:
+  google_ai:
     url: https://raw.githubusercontent.com/itdoginfo/allow-domains/main/Services/google_ai.lst
-    path: ./ruleset/google_ai.lst.lst
+    path: ./ruleset/google_ai.list
     behavior: classical
     interval: 86400
     format: text
