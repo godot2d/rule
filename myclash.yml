@@ -210,7 +210,7 @@ rules:
   - RULE-SET,claude,🤖 claude
   - RULE-SET,ai,🤖 人工智能
   - RULE-SET,myai,🤖 人工智能
-  - RULE-SET,google_ai.lst,🤖 人工智能
+  - RULE-SET,google_ai,🤖 人工智能
   - RULE-SET,BanAD,🛑 广告拦截
   - RULE-SET,BanProgramAD,🛑 广告拦截
   - RULE-SET,PrivateTracker,🛑 广告拦截
