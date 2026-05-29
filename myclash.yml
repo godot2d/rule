@@ -12,7 +12,7 @@ proxy-groups:
   - name: 🚀 手动切换
     type: select
     include-all: true
-  - name: 直接代理
+  - name: 下载和视频
     type: select
     proxies:
       - 🌍 机场节点
@@ -106,6 +106,7 @@ proxy-groups:
   - name: 🐟 漏网之鱼
     type: select
     proxies:
+      - 🌍 机场节点
       - 🚀 节点选择
       - ♻️ 自动选择
       - DIRECT
@@ -205,7 +206,7 @@ rule-providers:
     type: http
 
 rules:
-  - RULE-SET,download,直接代理
+  - RULE-SET,download,下载和视频
   - RULE-SET,claude,🤖 claude
   - RULE-SET,ai,🤖 人工智能
   - RULE-SET,myai,🤖 人工智能
