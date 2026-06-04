@@ -12,6 +12,7 @@ proxy-groups:
   - name: 🚀 手动切换
     type: select
     include-all: true
+    exclude-filter: (剩余|流量|套餐|到期|过期|Expire|Traffic|官网|网址|订阅|更新|群|www|http)
   - name: 下载和视频
     type: select
     proxies:
@@ -51,27 +52,32 @@ proxy-groups:
   - name: ♻️ 自动选择
     type: url-test
     include-all: true
-    filter: ^(?!.*ISP).*
-    url: http://www.gstatic.com/generate_204
+    exclude-filter: (ISP|剩余|流量|套餐|到期|过期|Expire|Traffic|官网|网址|订阅|更新|群|www|http)
+    url: https://www.google.com/generate_204
     interval: 300
-    tolerance: 50
+    tolerance: 80
+    lazy: false
   - name: 🌍 机场节点
-    type: fallback
+    type: url-test
     include-all: true
-    filter: ^(?!.*ISP)(?!.*\d+\.\d+\.\d+\.\d+).*
-    url: http://www.gstatic.com/generate_204
+    exclude-filter: (ISP|\d+\.\d+\.\d+\.\d+|剩余|流量|套餐|到期|过期|Expire|Traffic|官网|网址|订阅|更新|群|www|http)
+    url: https://www.google.com/generate_204
     interval: 300
+    tolerance: 80
+    lazy: false
   - name: 自己节点
     type: url-test
     include-all: true
     filter: (.*\d+\.\d+\.\d+\.\d+).*
-    url: http://www.gstatic.com/generate_204
+    url: https://www.google.com/generate_204
     interval: 300
     tolerance: 50
+    lazy: false
   - name: 🏠 住宅IP
     type: select
     include-all: true
     filter: (美国.*住宅|美国.*家宽|Residential|ISP)
+    exclude-filter: (剩余|流量|套餐|到期|过期|Expire|Traffic|官网|网址|订阅|更新|群|www|http)
   - name: 跳板选择
     type: select
     proxies:
@@ -86,23 +92,29 @@ proxy-groups:
     type: url-test
     include-all: true
     filter: (新加坡|坡|狮城|SG|Singapore)
-    url: http://www.gstatic.com/generate_204
+    exclude-filter: (剩余|流量|套餐|到期|过期|Expire|Traffic|官网|网址|订阅|更新|群|www|http)
+    url: https://www.google.com/generate_204
     interval: 300
     tolerance: 50
+    lazy: false
   - name: 🇺🇲 美国节点
     type: url-test
     include-all: true
     filter: (美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United States)
-    url: http://www.gstatic.com/generate_204
+    exclude-filter: (剩余|流量|套餐|到期|过期|Expire|Traffic|官网|网址|订阅|更新|群|www|http)
+    url: https://www.google.com/generate_204
     interval: 300
     tolerance: 50
+    lazy: false
   - name: 🇭🇰 香港节点
     type: url-test
     include-all: true
     filter: (港|HK|Hong Kong)
-    url: http://www.gstatic.com/generate_204
+    exclude-filter: (剩余|流量|套餐|到期|过期|Expire|Traffic|官网|网址|订阅|更新|群|www|http)
+    url: https://www.google.com/generate_204
     interval: 300
     tolerance: 50
+    lazy: false
   - name: 🐟 漏网之鱼
     type: select
     proxies:
