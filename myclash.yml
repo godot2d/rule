@@ -58,12 +58,11 @@ proxy-groups:
     tolerance: 80
     lazy: false
   - name: 🌍 机场节点
-    type: url-test
+    type: fallback
     include-all: true
     exclude-filter: (ISP|\d+\.\d+\.\d+\.\d+|剩余|流量|套餐|到期|过期|Expire|Traffic|官网|网址|订阅|更新|群|www|http)
     url: https://www.google.com/generate_204
-    interval: 300
-    tolerance: 80
+    interval: 30
     lazy: false
   - name: 自己节点
     type: url-test
