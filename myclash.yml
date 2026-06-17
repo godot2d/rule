@@ -81,6 +81,7 @@ proxy-groups:
     type: select
     proxies:
       - 自己节点
+      - 🌍 机场节点
       - 🇺🇲 美国节点
       - 🇭🇰 香港节点
       - ♻️ 自动选择
