@@ -27,6 +27,7 @@ proxy-groups:
     type: select
     proxies:
       - 🏠 住宅IP
+      - 991573节点
       - 🚀 节点选择
       - 🇸🇬 新加坡节点
       - 🇺🇲 美国节点
@@ -34,6 +35,7 @@ proxy-groups:
     type: select
     proxies:
       - 🏠 住宅IP
+      - 991573节点
       - 🇺🇲 美国节点
       - 🚀 节点选择
       - 🇸🇬 新加坡节点
@@ -76,6 +78,11 @@ proxy-groups:
     type: select
     include-all: true
     filter: (美国.*住宅|美国.*家宽|Residential|ISP)
+    exclude-filter: (剩余|流量|套餐|到期|过期|Expire|Traffic|官网|网址|订阅|更新|群|www|http)
+  - name: 991573节点
+    type: select
+    include-all: true
+    filter: (991573)
     exclude-filter: (剩余|流量|套餐|到期|过期|Expire|Traffic|官网|网址|订阅|更新|群|www|http)
   - name: 跳板选择
     type: select
