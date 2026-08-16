@@ -11,7 +11,7 @@ DOMAIN-SUFFIX,servicewechat.com
 DOMAIN-SUFFIX,doubao.com
 DOMAIN-SUFFIX,todesk.com
 PROCESS-NAME,ToDesk.exe
-
+DOMAIN-SUFFIX,linuxdo.org
 #网上其他规则
 PROCESS-NAME,wechat*
 PROCESS-NAME,wechatdevtools.exe
