@@ -31,8 +31,8 @@ proxy-groups:
   - name: 🚀 节点选择
     type: select
     proxies:
-      - 🌍 机场节点
       - ♻️ 自动选择
+      - 🌍 机场节点
       - 🚀 手动切换
       - 🇸🇬 新加坡节点
       - 🇺🇲 美国节点
